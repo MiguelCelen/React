@@ -94,13 +94,16 @@ export default function HomeScreen({ navigation }) {
       );
 
       const data = await response.json();
-
       const formatted = data.items.map(({ id, fieldData }) => ({
         id,
         title: fieldData.name,
         description: fieldData["short-description"] || "",
         image: fieldData["main-image"]?.url || "",
-        category: CATEGORY_NAMES[fieldData["category"]] || "Nieuws",
+        category: CATEGORY_NAMES[fieldData["categorie"]] || 
+            CATEGORY_NAMES[fieldData["category"]] || 
+            CATEGORY_NAMES[fieldData["categorie"]?.[0]] || 
+            CATEGORY_NAMES[fieldData["category"]?.[0]] || 
+            "Nieuws",
       }));
 
       setBlogs(formatted);
